@@ -2,16 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CatatanResource\Pages;
-use App\Filament\Resources\CatatanResource\RelationManagers;
-use App\Models\Catatan;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Catatan;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Pages\Actions\EditAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\CatatanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CatatanResource\RelationManagers;
+use App\Filament\Resources\CatatanResource\Pages\EditCatatan;
+use App\Filament\Resources\CatatanResource\Pages\ListCatatans;
+use App\Filament\Resources\CatatanResource\Pages\CreateCatatan;
 
 class CatatanResource extends Resource
 {
@@ -23,7 +32,8 @@ class CatatanResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('title'),
+                Textarea::make('content')->autosize()
             ]);
     }
 
@@ -31,7 +41,9 @@ class CatatanResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title'),
+                TextColumn::make('content')
+                ->limit(50)
             ])
             ->filters([
                 //

@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LabelResource\Pages;
-use App\Filament\Resources\LabelResource\RelationManagers;
-use App\Models\Label;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Label;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ColorColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\ColorPicker;
+use App\Filament\Resources\LabelResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\LabelResource\RelationManagers;
 
 class LabelResource extends Resource
 {
@@ -23,7 +27,8 @@ class LabelResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
+                ColorPicker::make('color')
             ]);
     }
 
@@ -31,7 +36,8 @@ class LabelResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                ColorColumn::make('color')
             ])
             ->filters([
                 //
