@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\catatan;
 use Laravel\Prompts\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,9 +13,8 @@ class label extends Model
 
     protected $fillable = ['name', 'color'];
 
-    // Relasi many-to-many dengan Note
-    public function notes()
+    public function catatan()
     {
-        return $this->belongsToMany(Note::class, 'note_label');
+        return $this->hasMany(catatan::class);
     }
 }

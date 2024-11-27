@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Pages\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
@@ -36,26 +37,41 @@ class CatatanResource extends Resource
    public static function form(Form $form): Form
     {
         return $form
+    ->schema([
+        Section::make()
+            ->columns(1) // Pastikan hanya ada satu kolom di Section
             ->schema([
-                Section::make()
-                    ->columns(1) // Pastikan hanya ada satu kolom di Section
-                    ->schema([
-                        TextInput::make('title')
-                            ->columnSpan([ // Ukuran tetap diatur
-                                'sm' => 1,
-                                'xl' => 1,
-                                '2xl' => 1,
-                            ]),
-
-                        Textarea::make('content')
-                            ->columnSpan([ // Ukuran tetap diatur
-                                'sm' => 4,
-                                'xl' => 1,
-                                '2xl' => 8,
-                            ])
-                            ->autosize(),
+                TextInput::make('title')
+                    ->label('Title')
+                    ->columnSpan([
+                        'sm' => 1,
+                        'xl' => 1,
+                        '2xl' => 1,
                     ]),
-        ]);
+
+                Textarea::make('content')
+                    ->label('Content')
+                    ->columnSpan([
+                        'sm' => 4,
+                        'xl' => 1,
+                        '2xl' => 8,
+                    ])
+                    ->autosize(),
+
+                Select::make('label_id') // Dropdown untuk memilih Label
+                    ->relationship('nama','id')
+                    // ->label('Label')
+                    // ->options(\App\Models\Label::pluck('name', 'id')) // Ambil nama label dari database
+                    ->searchable() // Bisa dicari
+                    ->required() // Kolom wajib diisi
+                    ->columnSpan([
+                        'sm' => 1,
+                        'xl' => 1,
+                        '2xl' => 1,
+                    ]),
+            ]),
+    ]);
+
     }
 
 

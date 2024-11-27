@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title'); // Judul catatan
             $table->text('content'); // Isi catatan
-            // $table->foreignId('label_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('label_id')->nullable(); // Foreign key ke label
+            $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
             $table->timestamps();
         });
     }
